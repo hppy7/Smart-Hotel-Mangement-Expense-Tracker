@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submit Review for {{ dish['name'] }}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            width: 80%;
+            margin: 0 auto;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            font-weight: bold;
+        }
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+        }
+        .form-group button {
+            padding: 10px 15px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .form-group button:hover {
+            background-color: #45a049;
+        }
+        .error {
+            color: red;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Submit Review for {{ dish['name'] }}</h1>
+
+    <!-- Display any error messages -->
+    {% if error %}
+    <div class="error">
+        <strong>Error: </strong>{{ error }}
+    </div>
+    {% endif %}
+
+    <!-- Review Form -->
+    <form action="{{ url_for('submit_review', dish_id=dish_id) }}" method="POST">
+        <div class="form-group">
+            <label for="rating">Rating (1-5):</label>
+            <input type="number" name="rating" id="rating" min="1" max="5" required>
+        </div>
+
+        <div class="form-group">
+            <label for="review_text">Review:</label>
+            <textarea name="review_text" id="review_text" rows="4" required></textarea>
+        </div>
+
+        <div class="form-group">
+            <button type="submit">Submit Review</button>
+        </div>
+    </form>
+
+    <!-- Link to go back to the dish list -->
+    <div>
+        <a href="{{ url_for('dish_list') }}">Back to Dishes List</a>
+    </div>
+</div>
+
+</body>
+</html>

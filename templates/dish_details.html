@@ -1,0 +1,24 @@
+<!-- dish_details.html -->
+<h2>{{ dish.name }}</h2>
+<p>{{ dish.description }}</p>
+<p><strong>Average Rating:</strong> {{ average_rating }} ({{ total_reviews }} reviews)</p>
+
+<h3>Customer Reviews</h3>
+{% for review in reviews %}
+    <div>
+        <strong>Customer {{ review.customer_id }}:</strong>
+        <p>Rating: {{ review.rating }} stars</p>
+        <p>{{ review.review_text }}</p>
+    </div>
+{% endfor %}
+
+<h2>Leave Your Review</h2>
+<form method="POST">
+    <label for="dish_rating">Dish Rating (1-5):</label>
+    <input type="number" id="dish_rating" name="dish_rating" min="1" max="5" required><br><br>
+    
+    <label for="dish_review">Your Review:</label>
+    <textarea id="dish_review" name="dish_review" placeholder="Enter your feedback for the dish..." required></textarea><br><br>
+    
+    <button type="submit">Submit Review</button>
+</form>

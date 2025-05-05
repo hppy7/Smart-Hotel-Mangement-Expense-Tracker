@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dishes List</title>
+</head>
+<body>
+    <h1>Dishes</h1>
+    {% if dishes %}
+        {% for dish in dishes %}
+            <div>
+                <h2>{{ dish.name }} - ${{ dish.price }}</h2>
+                <h3>Reviews:</h3>
+                {% if dish.reviews %}
+                    <ul>
+                        {% for review in dish.reviews %}
+                            <li>
+                                Rating: {{ review.rating }}<br>
+                                Comment: {{ review.review_text }}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p>No reviews yet.</p>
+                {% endif %}
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>No dishes found.</p>
+    {% endif %}
+</body>
+</html>

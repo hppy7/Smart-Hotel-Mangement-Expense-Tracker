@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add Dish</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+    .container {
+      width: 80%;
+      margin: 0 auto;
+    }
+    .form-group {
+      margin-bottom: 15px;
+    }
+    .form-group label {
+      font-weight: bold;
+    }
+    .form-group input, .form-group select {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+    }
+    .form-group button {
+      padding: 10px 15px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    .form-group button:hover {
+      background-color: #45a049;
+    }
+    .error {
+      color: red;
+      margin-bottom: 10px;
+    }
+    .warning {
+      color: orange;
+    }
+    .dish-list {
+      margin-top: 20px;
+    }
+    .dish-list table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .dish-list th, .dish-list td {
+      padding: 10px;
+      border: 1px solid #ddd;
+      text-align: left;
+    }
+    .dish-list th {
+      background-color: #f2f2f2;
+    }
+    .ingredient-row {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+    .ingredient-row select, .ingredient-row input {
+      flex: 1;
+    }
+    .remove-btn {
+      background-color: #e74c3c;
+      color: white;
+      border: none;
+      padding: 8px 10px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h1>Add/Update Dish</h1>
+
+  {% if error %}
+  <div class="error">
+    <strong>Error: </strong>{{ error }}
+  </div>
+  {% endif %}
+
+  <form action="/add-dish" method="POST" id="dishForm">
+    <div class="form-group">
+      <label for="name">Dish Name:</label>
+      <input type="text" id="name" name="name" required>
+    </div>
+
+    <div class="form-group">
+      <label>Ingredients:</label>
+      <div id="ingredient-container">
+        <div class="ingredient-row">
+          <select name="ingredient" required>
+            {% for ing, qty in ingredient_list %}
+            <option value="{{ ing }}">{{ ing }} ({{ qty }} available)</option>
+            {% endfor %}
+          </select>
+          <input type="text" name="quantity" placeholder="Quantity" required>
+          <button type="button" class="remove-btn" onclick="removeIngredient(this)">❌</button>
+        </div>
+      </div>
+      <button type="button" onclick="addIngredientRow()">➕ Add Ingredient</button>
+    </div>
+
+    <div class="form-group">
+      <label for="dish_quantity">Dish Quantity (how many dishes):</label>
+      <input type="number" name="dish_quantity" id="dish_quantity" min="1" required>
+    </div>
+
+    <div class="form-group">
+      <button type="submit">Add/Update Dish</button>
+    </div>
+  </form>
+
+  <h2>Low Stock Warnings</h2>
+  <ul>
+    {% for warning in warnings %}
+    <li class="warning">{{ warning }}</li>
+    {% endfor %}
+  </ul>
+
+  <h2>Existing Dishes</h2>
+  <div class="dish-list">
+    <table>
+      <thead>
+        <tr>
+          <th>Dish Name</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for dish in existing_dishes %}
+        <tr>
+          <td>{{ dish }}</td>
+          <td>
+            <form action="/add-dish" method="POST" style="display:inline;">
+              <input type="hidden" name="dish_to_delete" value="{{ dish }}">
+              <button type="submit" name="action" value="delete">Delete</button>
+            </form>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<script>
+  function addIngredientRow() {
+    const container = document.getElementById('ingredient-container');
+    const row = document.createElement('div');
+    row.className = 'ingredient-row';
+    row.innerHTML = `
+      <select name="ingredient" required>
+        {% for ing, qty in ingredient_list %}
+        <option value="{{ ing }}">{{ ing }} ({{ qty }} available)</option>
+        {% endfor %}
+      </select>
+      <input type="text" name="quantity" placeholder="Quantity" required>
+      <button type="button" class="remove-btn" onclick="removeIngredient(this)">❌</button>
+    `;
+    container.appendChild(row);
+  }
+
+  function removeIngredient(button) {
+    const row = button.parentNode;
+    row.parentNode.removeChild(row);
+  }
+</script>
+
+</body>
+</html>

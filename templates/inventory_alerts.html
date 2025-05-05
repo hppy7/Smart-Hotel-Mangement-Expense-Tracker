@@ -1,0 +1,19 @@
+<body>
+    <h1>⚠️ Low Stock Alerts</h1>
+    {% if alerts %}
+        <table border="1">
+            <tr><th>Ingredient</th><th>Quantity</th><th>Threshold</th></tr>
+            {% for item in alerts %}
+                <tr>
+                    <td>{{ item[0] }}</td>
+                    <td>{{ item[1] }}</td>
+                    <td>{{ item[2] }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <p>✅ All inventory levels are sufficient.</p>
+    {% endif %}
+    <br>
+    <a href="/inventory">Back to Inventory</a>
+</body>

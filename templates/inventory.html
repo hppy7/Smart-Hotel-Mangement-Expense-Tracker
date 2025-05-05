@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Inventory</title>
+</head>
+<body>
+    <h1>Manage Inventory</h1>
+
+    <!-- Add or Update Ingredient Form -->
+    <h2>Add or Update Ingredient Quantity</h2>
+    <form method="POST">
+        <input name="name" placeholder="Name" required>
+        <input name="price" placeholder="Price/Unit" required type="number" step="0.01">
+        <input name="quantity" placeholder="Add Quantity" required type="number" step="0.01">
+        <input name="threshold" placeholder="Threshold" required type="number" step="0.01">
+        <button type="submit" name="action" value="add_or_update">Add/Update Ingredient</button>
+    </form>
+
+    <!-- Update Price Form -->
+    <h2>Update Ingredient Price</h2>
+    <form method="POST">
+        <select name="ingredient_name" required>
+            {% for ingredient in ingredients %}
+                <option value="{{ ingredient[1] }}">{{ ingredient[1] }}</option>
+            {% endfor %}
+        </select>
+        <input type="number" step="0.01" name="new_price" placeholder="New Price" required>
+        <button type="submit" name="action" value="update_price">Update Price</button>
+    </form>
+
+    <!-- Inventory Table -->
+    <h2>Current Ingredients</h2>
+    <table border="1" cellpadding="5" cellspacing="0">
+        <tr>
+            <th>Name</th>
+            <th>Price/Unit</th>
+            <th>Quantity</th>
+            <th>Actions</th>
+        </tr>
+        {% for ingredient in ingredients %}
+            <tr>
+                <td>{{ ingredient[1] }}</td>
+                <td>{{ ingredient[2] }}</td>
+                <td>{{ ingredient[3] }}</td>
+                <td>
+                    <a href="{{ url_for('delete_ingredient', ingredient_id=ingredient[0]) }}">Delete</a>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+
+    <br>
+    <a href="/">← Back to Home</a>
+</body>
+</html>

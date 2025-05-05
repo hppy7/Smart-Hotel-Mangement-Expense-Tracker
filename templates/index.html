@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Hotel Expense Tracker</title>
+</head>
+<body>
+    <h1>Dashboard</h1>
+    <ul>
+        <li><a href="/inventory">Manage Inventory</a></li>
+        <li><a href="/add-dish">Add Dish</a></li>
+        <li><a href="/sales">View Sales Analytics</a></li>
+        <li><a href="/sell-dish">Sell a Dish</a></li>
+        <li><a href="{{ url_for('dish_availability') }}">Check Dish Availability</a></li>
+    </ul>
+
+    <h2>All Dishes</h2>
+    <a href="{{ url_for('dish_list') }}">View All Dishes & Reviews</a>
+
+    {% for dish in dishes %}
+        <div style="margin-top: 10px; border-bottom: 1px solid #ccc; padding-bottom: 10px;">
+            <strong>{{ dish.name }}</strong><br>
+            Cost Price: ₹{{ dish.cost_price }}<br>
+            Selling Price: ₹{{ dish.selling_price }}<br>
+            <a href="{{ url_for('dish_list') }}">View Reviews</a> |
+            <a href="{{ url_for('submit_review', dish_id=dish.id) }}">Submit Review</a>
+        </div>
+    {% endfor %}
+</body>
+</html>

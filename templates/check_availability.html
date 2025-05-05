@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dish Availability</title>
+</head>
+<body>
+    <h2>Dish Availability</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Dish Name</th>
+                <th>Available Quantity</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for dish, quantity in available_dishes %}
+                <tr>
+                    <td>{{ dish }}</td>
+                    <td>{{ quantity if quantity > 0 else 'Unavailable' }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sell Dish</title>
+</head>
+<body>
+    <h1>Sell Dish</h1>
+
+    {% if error %}
+    <div style="color: red;"><strong>Error:</strong> {{ error }}</div>
+    {% endif %}
+
+    <form method="POST">
+        <label for="dish_id"><strong>Select Dish:</strong></label><br>
+        <select name="dish_id" id="dish_id" required>
+            <option value="" disabled selected>Select a dish</option>
+            {% for dish in dishes %}
+            <option value="{{ dish[0] }}">{{ dish[1] }}</option>
+            {% endfor %}
+        </select><br><br>
+
+        <label for="quantity"><strong>Quantity:</strong></label><br>
+        <input type="number" id="quantity" name="quantity" step="1" min="1" placeholder="Quantity" required><br><br>
+
+        <button type="submit">Sell Dish</button>
+    </form>
+
+    <br>
+    <a href="/">← Back to Home</a>
+</body>
+</html>

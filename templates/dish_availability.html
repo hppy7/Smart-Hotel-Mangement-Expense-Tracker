@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dish Availability</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+        h1 {
+            color: #333;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px 15px;
+            text-align: left;
+        }
+        th {
+            background-color: #f1f1f1;
+        }
+        .unavailable {
+            color: red;
+            font-weight: bold;
+        }
+        .available {
+            color: green;
+            font-weight: bold;
+        }
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            color: #007BFF;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Dish Availability</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Dish Name</th>
+                <th>Availability</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for dish, availability in availability %}
+            <tr>
+                <td>{{ dish }}</td>
+                <td class="{{ 'unavailable' if availability == 'Unavailable' else 'available' }}">
+                    {{ availability }}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="/">← Back to Home</a>
+
+</body>
+</html>
