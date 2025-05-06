@@ -49,27 +49,7 @@ To run this project, follow these steps to set up the environment:
 ```bash
 git clone https://github.com/yourusername/smart-hotel-expense-tracker.git
 cd smart-hotel-expense-tracker
-Step 2: Set up a Virtual Environment (optional but recommended)
-bash
-Copy code
-python -m venv venv
-Activate the virtual environment:
 
-Windows:
-
-bash
-Copy code
-venv\Scripts\Activate
-macOS/Linux:
-
-bash
-Copy code
-source venv/bin/activate
-Step 3: Install Dependencies
-Make sure all required libraries are installed:
-
-bash
-Copy code
 pip install -r requirements.txt
 Step 4: Set up the Database
 Run the database setup script to initialize the required tables:
