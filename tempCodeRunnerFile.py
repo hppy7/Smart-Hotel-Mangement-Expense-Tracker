@@ -10,7 +10,7 @@ app = Flask(__name__)
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
 app.config['MAIL_PORT'] = 587
 app.config['MAIL_USE_TLS'] = True
-app.config['MAIL_USERNAME'] = 'bhatsuheem1@gmail.com'
+app.config['MAIL_USERNAME'] = 'happysohil1234@gmail.com'
 app.config['MAIL_PASSWORD'] = os.environ.get("MAIL_PASSWORD")
 mail = Mail(app)
 
@@ -558,4 +558,9 @@ def check_availability():
 
     conn.close()
 
+    # This return statement must be inside the function
     return render_template('check_availability.html', available_dishes=available_dishes)
+
+if __name__ == "__main__":
+    app.run(debug=True)
+
